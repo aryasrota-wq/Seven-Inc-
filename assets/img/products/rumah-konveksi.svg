@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" role="img" aria-label="Ilustrasi mesin jahit"><defs><radialGradient id="g" cx="50%" cy="40%" r="75%"><stop offset="0" stop-color="#2a2a2a"/><stop offset="1" stop-color="#0d0d0d"/></radialGradient></defs><rect width="400" height="500" fill="url(#g)"/><rect x="0" y="468" width="400" height="6" fill="#d9261c"/>
+<g stroke="#e8e8e8" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" fill="#181818">
+<path d="M60 360 H340 V330 H300 V190 Q300 140 250 140 H110 V215 H225 V330 H60 Z"/>
+<rect x="95" y="360" width="210" height="30" rx="4" fill="#202020"/>
+<path d="M130 215 V300" /><path d="M130 300 l-6 22 h12 z" fill="#d9261c" stroke="#d9261c"/>
+<circle cx="268" cy="190" r="26" fill="#202020"/><circle cx="268" cy="190" r="8" fill="#d9261c" stroke="none"/>
+<rect x="140" y="105" width="34" height="35" rx="5" fill="#202020"/>
+<path d="M148 105 v-10 h18 v10" />
+<path d="M174 122 Q200 100 226 150" fill="none" stroke="#d9261c" stroke-width="2"/>
+</g></svg>

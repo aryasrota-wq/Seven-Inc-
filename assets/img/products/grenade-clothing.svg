@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" role="img" aria-label="Ilustrasi kaos"><defs><radialGradient id="g" cx="50%" cy="40%" r="75%"><stop offset="0" stop-color="#2a2a2a"/><stop offset="1" stop-color="#0d0d0d"/></radialGradient></defs><rect width="400" height="500" fill="url(#g)"/><rect x="0" y="468" width="400" height="6" fill="#d9261c"/>
+<g stroke="#e8e8e8" stroke-width="3" stroke-linejoin="round" fill="#181818">
+<path d="M150 80 Q200 125 250 80 L330 115 L370 205 L318 232 L300 195 L300 420 L100 420 L100 195 L82 232 L30 205 L70 115 Z"/>
+<path d="M150 80 Q200 125 250 80" fill="none" stroke="#d9261c" stroke-width="4"/>
+<path d="M165 260 L200 225 L235 260 L235 310 L165 310 Z" fill="#232323" stroke="#d9261c"/>
+<path d="M185 285 h30" stroke="#e8e8e8" stroke-width="3"/>
+</g></svg>
