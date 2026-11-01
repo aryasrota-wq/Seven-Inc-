@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" role="img" aria-label="Ilustrasi jas dan blazer"><defs><radialGradient id="g" cx="50%" cy="40%" r="75%"><stop offset="0" stop-color="#2a2a2a"/><stop offset="1" stop-color="#0d0d0d"/></radialGradient></defs><rect width="400" height="500" fill="url(#g)"/><rect x="0" y="468" width="400" height="6" fill="#d9261c"/>
-<g stroke="#e8e8e8" stroke-width="3" stroke-linejoin="round" fill="#181818">
-<path d="M150 70 L200 110 L250 70 L305 95 L350 200 L318 222 L300 175 L300 420 L100 420 L100 175 L82 222 L50 200 L95 95 Z"/>
-<path d="M150 70 L200 250 L135 190 L158 140 L130 118 Z" fill="#232323"/>
-<path d="M250 70 L200 250 L265 190 L242 140 L270 118 Z" fill="#232323"/>
-<path d="M200 250 L200 420" />
-<circle cx="208" cy="300" r="5" fill="#d9261c" stroke="none"/><circle cx="208" cy="345" r="5" fill="#d9261c" stroke="none"/>
-<path d="M120 330 h42 M238 330 h42" stroke="#777" stroke-width="2.5"/>
-</g></svg>
