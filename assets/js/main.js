@@ -331,35 +331,38 @@
     el.setAttribute("rel", "noopener");
   });
 
-  const WEB3FORMS_KEY = "559c8264-90f5-4e40-9971-5509824affbc";
   const contactForm = document.getElementById("contact-form");
   if (contactForm) {
     const loading = contactForm.querySelector(".loading"), sent = contactForm.querySelector(".sent-message"),
           err = contactForm.querySelector(".error-message"), btn = contactForm.querySelector("button[type=submit]");
+
+    if (/[?&]terkirim=1/.test(location.search)) {
+      sent.style.display = "block";
+      history.replaceState(null, "", location.pathname + location.hash);
+    }
+
+    function kirimBiasa() {
+      contactForm.querySelector("[name=redirect]").value = location.origin + location.pathname + "?terkirim=1#contact";
+      HTMLFormElement.prototype.submit.call(contactForm);
+    }
 
     contactForm.addEventListener("submit", function(e) {
       e.preventDefault();
       const d = new FormData(contactForm);
       if (d.get("botcheck")) return;
       sent.style.display = "none"; err.style.display = "none"; loading.style.display = "block"; btn.disabled = true;
-      fetch("https://api.web3forms.com/submit", {
+      fetch(contactForm.action, {
         method: "POST",
         headers: { "Content-Type": "application/json", "Accept": "application/json" },
         body: JSON.stringify({
-          access_key: WEB3FORMS_KEY,
-          subject: "Pesan baru dari website Seven Inc",
-          from_name: "Website Seven Inc",
-          Nama: d.get("nama"), Layanan: d.get("layanan"), Pesan: d.get("pesan")
+          access_key: d.get("access_key"), subject: d.get("subject"), from_name: d.get("from_name"),
+          name: d.get("name"), Layanan: d.get("layanan"), message: d.get("message")
         })
       }).then(function(r) { return r.json(); }).then(function(res) {
-        loading.style.display = "none"; btn.disabled = false;
-        if (res.success) { sent.style.display = "block"; contactForm.reset(); }
-        else { throw new Error(res.message || "gagal"); }
-      }).catch(function() {
-        loading.style.display = "none"; btn.disabled = false;
-        err.textContent = "Pesan belum terkirim. Silakan coba lagi atau hubungi kami lewat WhatsApp.";
-        err.style.display = "block";
-      });
+        if (res.success) {
+          loading.style.display = "none"; btn.disabled = false; sent.style.display = "block"; contactForm.reset();
+        } else { kirimBiasa(); }
+      }).catch(kirimBiasa);
     });
   }
 
