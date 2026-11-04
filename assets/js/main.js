@@ -60,10 +60,6 @@
     });
   });
 
-  /**
-   * Intro: tampil minimal INTRO_MIN ms sejak halaman dibuka, lalu panel terbelah
-   * dan animasi AOS / hero dimulai.
-   */
   const preloader = document.querySelector('#preloader');
   const INTRO_MIN = 1700;
   function finishIntro() {
@@ -78,7 +74,6 @@
     const from = logo ? logo.getBoundingClientRect() : null;
     const to = hLogo ? hLogo.getBoundingClientRect() : null;
     if (reduce || !logo || !logo.animate || !from.width || !to || !to.width) { setTimeout(done, reduce ? 0 : 1000); return; }
-    // Logo di tengah terbang mengecil ke posisi logo di header
     hLogo.style.visibility = 'hidden';
     logo.style.transformOrigin = '0 0';
     const fly = logo.animate([
@@ -104,7 +99,7 @@
       window.scrollY > 100 ? scrollTop.classList.add('active') : scrollTop.classList.remove('active');
     }
   }
-  scrollTop.addEventListener('click', (e) => {
+  if (scrollTop) scrollTop.addEventListener('click', (e) => {
     e.preventDefault();
     window.scrollTo({
       top: 0,
@@ -254,16 +249,10 @@
 
 })();
 
-/*--------------------------------------------------------------
-# Kustomisasi Seven Inc (ditambahkan di atas template Arsha)
---------------------------------------------------------------*/
 (function() {
   "use strict";
 
-  /* ============================================================
-     KONFIGURASI: CUKUP UBAH DI SINI
-     ============================================================ */
-  const WA_NUMBER = "6285211075541";                          // format: 62 + nomor tanpa 0
+  const WA_NUMBER = "6285211075541";
   const WA_DEFAULT_MESSAGE = "Halo Seven Inc, saya ingin bertanya mengenai layanan Anda.";
   const INSTAGRAM_URL = "https://www.instagram.com/sevenincjogja/";
 
@@ -271,18 +260,12 @@
     return "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(message);
   }
 
-  /**
-   * Semua elemen dengan atribut data-wa otomatis menjadi link WhatsApp
-   */
   document.querySelectorAll("[data-wa]").forEach(function(el) {
     el.setAttribute("href", waLink(el.getAttribute("data-wa") || WA_DEFAULT_MESSAGE));
     el.setAttribute("target", "_blank");
     el.setAttribute("rel", "noopener");
   });
 
-  /**
-   * Panel rincian produk per lini bisnis (tombol "Lihat produk" di kartu layanan)
-   */
   const SVC_DATA = {
     konveksi: { tag: "Rumah Konveksi", title: "Konveksi", site: "rumahkonveksi.com",
       intro: "Pengerjaan pakaian di fasilitas produksi sendiri, ditambah brand fashion pria milik Seven Inc.",
@@ -332,7 +315,6 @@
           return '<li><div><b>' + esc(i[0]) + '</b>' + (i[1] ? '<span>' + esc(i[1]) + '</span>' : '') + '</div></li>';
         }).join("") + '</ul>';
       }).join("");
-      $("svcModalWa").setAttribute("href", waLink("Halo Seven Inc, saya ingin bertanya tentang produk/layanan " + d.title + "."));
       const site = $("svcModalSite"); site.href = "https://" + d.site; site.innerHTML = esc(d.site) + ' <i class="bi bi-arrow-up-right"></i>';
       modal.hidden = false; document.body.classList.add("svc-modal-open");
       modal.querySelector(".svc-modal__close").focus();
@@ -343,36 +325,38 @@
     document.addEventListener("keydown", function(e) { if (e.key === "Escape" && !modal.hidden) close(); });
   })();
 
-  /**
-   * Semua elemen dengan atribut data-ig otomatis menjadi link Instagram
-   */
   document.querySelectorAll("[data-ig]").forEach(function(el) {
     el.setAttribute("href", INSTAGRAM_URL);
     el.setAttribute("target", "_blank");
     el.setAttribute("rel", "noopener");
   });
 
-  /**
-   * Form kontak: rakit pesan lalu buka WhatsApp
-   */
-  const waForm = document.getElementById("wa-form");
-  if (waForm) {
-    waForm.addEventListener("submit", function(e) {
+  const FORM_EMAIL = "aryasrota@gmail.com";
+  const contactForm = document.getElementById("contact-form");
+  if (contactForm) {
+    contactForm.addEventListener("submit", function(e) {
       e.preventDefault();
-      const d = new FormData(waForm);
-      const text = "Halo Seven Inc, saya ingin konsultasi.\n\n" +
-        "Nama: " + d.get("nama") + "\n" +
-        "Layanan: " + d.get("layanan") + "\n" +
-        "Pesan: " + d.get("pesan");
-      const sent = waForm.querySelector(".sent-message");
-      if (sent) sent.style.display = "block";
-      window.open(waLink(text), "_blank", "noopener");
+      const loading = contactForm.querySelector(".loading"), sent = contactForm.querySelector(".sent-message"),
+            err = contactForm.querySelector(".error-message"), btn = contactForm.querySelector("button[type=submit]");
+      const d = new FormData(contactForm);
+      if (d.get("_honey")) return;
+      sent.style.display = "none"; err.style.display = "none"; loading.style.display = "block"; btn.disabled = true;
+      fetch("https://formsubmit.co/ajax/" + FORM_EMAIL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        body: JSON.stringify({ Nama: d.get("nama"), Layanan: d.get("layanan"), Pesan: d.get("pesan"),
+          _subject: "Pesan baru dari website Seven Inc", _template: "table", _captcha: "false" })
+      }).then(function(r) { return r.json(); }).then(function(res) {
+        loading.style.display = "none"; btn.disabled = false;
+        if (res.success === "true" || res.success === true) { sent.style.display = "block"; contactForm.reset(); }
+        else { throw new Error(res.message || "gagal"); }
+      }).catch(function() {
+        loading.style.display = "none"; btn.disabled = false;
+        err.textContent = "Pesan belum terkirim. Silakan coba lagi atau hubungi kami lewat WhatsApp."; err.style.display = "block";
+      });
     });
   }
 
-  /**
-   * Angka statistik hero berhitung naik
-   */
   const counters = document.querySelectorAll("[data-count]");
   if (counters.length && "IntersectionObserver" in window) {
     const io = new IntersectionObserver(function(entries) {
