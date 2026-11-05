@@ -3876,3 +3876,15 @@ body.intro-exit .intro-bg { opacity: 0; }
 .footer .footer-top p { text-align: justify; hyphens: auto; }
 
 .hero .btn-watch-video { margin-left: 0 !important; }
+
+.work-process .steps-features .feature-item { align-items: center; }
+.work-process .steps-features .feature-item i { height: auto; line-height: 1; margin-right: 12px; }
+.work-process .steps-features .feature-item span { line-height: 1.4; }
+
+@media (min-width: 992px) {
+  .work-process .row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 1.5rem; margin-left: 0; margin-right: 0; }
+  .work-process .row > [class*="col-"] { width: auto; max-width: none; padding-left: 0; padding-right: 0; display: grid; grid-row: span 4; grid-template-rows: subgrid; }
+  .work-process .steps-item { display: grid; grid-row: 1 / span 4; grid-template-rows: subgrid; height: auto; }
+  .work-process .steps-item .steps-image { grid-row: 1; }
+  .work-process .steps-item .steps-content { grid-row: 2 / span 3; display: grid; grid-template-rows: subgrid; }
+}
